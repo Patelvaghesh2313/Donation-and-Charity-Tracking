@@ -1,0 +1,41 @@
+{% extends 'admin_layout.html' %}
+{% block admin_title %}Suggestion{% endblock %}
+{% block page_header %}Suggestion{% endblock %}
+{% block page_define %}
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="{{ url_for('admin') }}">Home</a></li>
+              <li><i class="fa fa-support"></i><a href="{{ url_for('admin_inbox') }}">Suggestion</a></li>
+            </ol>
+{% endblock %}
+
+{% block admin_content %}
+    <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <div class="panel-body">
+                <div class="tab-content">
+                  <div id="recent-activity" class="tab-pane active">
+                    <div class="profile-activity">
+                      <div class="act-time">
+                        <div class="activity-body act-in">
+                          <span class="arrow"></span>
+                             {% for row in suggestion %}
+                          <div class="text">
+                            <a href="#" class="activity-img"><img class="avatar" src="{{ url_for('static',filename='pics/'+ row.image) }}" alt="userPic"></a>
+                            <p class="attribution"><a href="#">{{ row.email }}</a> at {{ row.time }}, {{ row.date }}</p>
+                            <b><p>Subject : {{ row.subject }}</p></b>
+                            <p>{{ row.message }}</p>
+                          </div><br>
+                            {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+          </div>
+
+    </div>
+{% endblock %}

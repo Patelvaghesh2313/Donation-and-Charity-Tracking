@@ -1,0 +1,47 @@
+{% extends 'admin_layout.html' %}
+{% block admin_title %}Admin Dashboard{% endblock %}
+{% block page_header %}Dashboard{% endblock %}
+{% block page_define %}
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="{{ url_for('user_details') }}">Home</a></li>
+            </ol>
+{% endblock %}
+{% block admin_content %}
+<div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="info-box orange-bg">
+              <i class="fa fa-users"></i>
+              <div class="count">{{ total_users }}</div>
+              <div class="title">Total <Users></Users></div>
+            </div>
+            <!--/.info-box-->
+          </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="info-box linkedin-bg">
+              <i class="fa fa-clipboard"></i>
+              <div class="count">{{ total_posts }}</div>
+              <div class="title">Total Posts</div>
+            </div>
+            <!--/.info-box-->
+          </div>
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="info-box lime-bg">
+              <i class="fa fa-users"></i>
+              <div class="count">{{ total_suggestion }}</div>
+              <div class="title">Users View</div>
+            </div>
+            <!--/.info-box-->
+          </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+            <div class="info-box brown-bg">
+              <i class="fa fa-send"></i>
+              <div class="count">{{ total_donation }}</div>
+              <div class="title">Total Transactions</div>
+            </div>
+            <!--/.info-box-->
+          </div>
+</div>
+
+{% endblock %}

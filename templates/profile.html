@@ -1,0 +1,184 @@
+{% extends "layout01.html" %}
+{% block title %}Profile{% endblock %}
+{% block pagename %}Profile{% endblock %}
+{% block pagelink %}
+<ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="{{ url_for('index') }}">Home</a></li>
+              <li><i class="icon_profile"></i><a href="{{ url_for('profile') }}">Profile</a></li>
+</ol>
+{% endblock %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="panel-body">
+                                <div class="alert alert-{{ category }} alert-dismissable fade in" role="alert">
+                                     <button aria-hidden="true" data-dismiss="alert" class="close" type="button">×</button>
+                                      <strong>{{ message }}</strong>
+                                </div>
+                            </div>
+
+                        {% endfor %}
+                    {% endif %}
+{% endwith %}
+    <div class="row">
+          <!-- profile-widget -->
+          <div class="col-lg-12">
+            <div class="profile-widget profile-widget-info">
+              <div class="panel-body">
+
+                <div class="col-lg-2 col-sm-2">
+                  <h4>{{ user.firstname }} {{ user.lastname }}</h4>
+                  <div class="follow-ava">
+                    <img src="{{ url_for('static',filename='pics/' + user.image) }}" alt="">
+                  </div>
+                  <h6>{{ user.occupation }}</h6>
+                </div>
+                <div class="col-lg-4 col-sm-4 follow-info">
+                  <p>Hello I’m {{ user.firstname }} {{ user.lastname }}</p>
+                  <p>{{ user.email }}</p>
+                  <h6>
+
+                                    <span><i class="icon_calendar"></i>{{ session['today'] }}</span>
+                                    <span><i class="icon_pin_alt"></i>{{ user.country }}</span>
+                                </h6>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- page start-->
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading tab-bg-info">
+                <ul class="nav nav-tabs">
+                  <li class="active">
+                    <a data-toggle="tab" href="#profile">
+                                          <i class="icon-user"></i>
+                                          Profile
+                                      </a>
+                  </li>
+                  <li class="">
+                    <a data-toggle="tab" href="#edit-profile">
+                                          <i class="icon-envelope"></i>
+                                          Edit Profile
+                                      </a>
+                  </li>
+                </ul>
+              </header>
+
+              <div class="panel-body">
+                <div class="tab-content">
+                  <!-- profile -->
+                  <div id="profile" class="tab-pane active">
+                    <section class="panel">
+                      <div class="bio-graph-heading">
+                        <h3>WelCome, {{ user.firstname }} {{ user.lastname }}</h3>
+                      </div>
+                      <div class="panel-body bio-graph-info">
+                        <h1>Bio Graph</h1>
+                        <div class="row">
+                          <div class="bio-row">
+                            <p><span>First Name </span>: {{ user.firstname }} </p>
+                          </div>
+                          <div class="bio-row">
+                            <p><span>Last Name </span>: {{ user.lastname }}</p>
+                          </div>
+                          <div class="bio-row">
+                            <p><span>Birthday</span>: {{ user.birthday }}</p>
+                          </div>
+                          <div class="bio-row">
+                            <p><span>Country </span>: {{ user.country }}</p>
+                          </div>
+                          <div class="bio-row">
+                            <p><span>Occupation </span>: {{ user.occupation }}</p>
+                          </div>
+                          <div class="bio-row">
+                            <p><span>Email </span>: {{ user.email }}</p>
+                          </div>
+                          <div class="bio-row">
+                            <p><span>Mobile </span>: {{ user.phone }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </section>
+                    <section>
+                      <div class="row">
+                      </div>
+                    </section>
+                  </div>
+                  <!-- edit-profile -->
+                  <div id="edit-profile" class="tab-pane">
+                    <section class="panel">
+                      <div class="panel-body bio-graph-info">
+                        <h1> Profile Info</h1>
+                        <form class="form-horizontal" role="form" enctype="multipart/form-data" method="POST" action="{{ url_for('update_profile',id=user.id) }}">
+                          <div class="form-group">
+                            <label class="col-lg-2 control-label">First Name</label>
+                            <div class="col-lg-6">
+                                <input type="hidden" name="id" value="{{ user.id }}">
+                              <input type="text" name="firstname" class="form-control" value="{{ user.firstname }}" id="f-name" placeholder=" ">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-lg-2 control-label">Last Name</label>
+                            <div class="col-lg-6">
+                              <input type="text" name="lastname" class="form-control" value="{{ user.lastname }}" id="l-name" placeholder=" ">
+                            </div>
+                          </div>
+                          <div class="form-group ">
+                              <label for="city" class="control-label col-lg-2">Country</label>
+                              <div class="col-lg-6">
+                                  <select class="form-control " id="country" name="country" type="text" name="country" required>
+                                    <option selected="">{{ user.country }}</option>
+                                    <option>Australia</option>
+                                    <option>Canada</option>
+                                    <option>India</option>
+                                    <option>Russia</option>
+                                    <option>USA</option>
+                                  </select>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-lg-2 control-label">Birthday</label>
+                            <div class="col-lg-6">
+                              <input type="date" name="birthday" class="form-control" value="{{ user.birthday }}" id="b-day" placeholder=" ">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-lg-2 control-label">Occupation</label>
+                            <div class="col-lg-6">
+                              <input type="text" name="occupation" class="form-control" value="{{ user.occupation }}" id="occupation" placeholder=" ">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-lg-2 control-label">Email</label>
+                            <div class="col-lg-6">
+                              <input type="text" name="email" class="form-control" value="{{ user.email }}" id="email" placeholder=" ">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-lg-2 control-label">Mobile</label>
+                            <div class="col-lg-6">
+                              <input type="text" name="phone" class="form-control" value="{{ user.phone }}" id="mobile" placeholder=" ">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                              <button type="submit" class="btn btn-primary col-lg-7">Update</button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+
+{% endblock %}
